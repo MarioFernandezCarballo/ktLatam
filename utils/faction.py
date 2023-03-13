@@ -1,4 +1,4 @@
-from database import Faction, UserFaction
+from database import Faction, UserFaction, User
 from flask import current_app
 from sqlalchemy import desc, asc
 
@@ -13,8 +13,9 @@ def getFactionOnly(fct):
 
 
 def getFactions():
-    factUsers = current_app.config["database"].session.query(Faction, UserFaction).join(UserFaction).filter(
-        Faction.id == UserFaction.factionId).order_by(Faction.name).order_by(desc(UserFaction.bcpScore)).all()
+    factUsers = current_app.config["database"].session.query(Faction, UserFaction, User).filter(
+        Faction.id == UserFaction.factionId).filter(UserFaction.userId == User.id).order_by(Faction.name).order_by(
+        desc(UserFaction.ibericonScore)).all()
 
     return Faction.query.order_by(Faction.name).all(), factUsers
 
