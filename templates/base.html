@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title }}</title>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/styles.css') }}">
+</head>
+<body>
+    <nav class="fade-in">
+        <div><a href="/">General</a></div>
+        <div><a href="/users">Jugadores</a></div>
+        <div><a href="/teams">Equipos</a></div>
+        <div><a href="/clubs">Clubes</a></div>
+        <div><a href="/tournaments">Torneos</a></div>
+        <div><a href="/factions">Facciones</a></div>
+    </nav>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <div class="logo"></div>
+    {% block content %}
+    {% endblock %}
+    {% if user %}
+        <nav class="footer fade-in">
+        {% if user.permissions >= 12 %}
+            <div><a class="nav-link" href="/add/tournament">Añadir torneo</a></div>
+        {% endif %}
+        <div><a class="nav-link" href="/logout">Desconectarse</a></div>
+        </nav>
+    {% endif %}
+</body>
+</html>

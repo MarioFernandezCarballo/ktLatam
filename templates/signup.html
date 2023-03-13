@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="login">
+        <h2>Registro</h2>
+        <form class="login-form" action="/signup/only-collaborator" method="post">
+            <input placeholder="Nombre" type="text" name="username" id="username">
+            <input placeholder="Contraseña" type="password" name="password" id="password">
+            <input placeholder="Repite constraseña" type="password" name="password1" id="password1">
+            <input placeholder="Link usuario BCP" type="text" name="bcpLink" id="bcpLink">
+            <button type="submit">Resgistrarse</button>
+            <a href="/login/only-collaborator">¿Ya tienes cuenta? Entra aquí</a>
+        </form>
+    </div>
+{% endblock %}
