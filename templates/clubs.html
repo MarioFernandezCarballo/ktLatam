@@ -15,7 +15,7 @@
                 <tr onclick="location.href='/club/{{ cl.id }}';">
                     <td style="width: 60%;">{{ cl.name | truncate(30, True, '...', 0) }}</td>
                     <td>{{ loop.index }}</td>
-                    <td>{{ '%0.2f'| format(cl.ibericonScore) }}</td>
+                    <td>{{ '%0.2f'| format(cl.bcpScore) }}</td>
                 </tr>
             {% endfor %}
             <tbody>

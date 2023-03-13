@@ -74,50 +74,11 @@ def manageUsers(db, tor):
         usrTor.position = user['placing']
         usrTor.performance = json.dumps(user['total_games'])
 
-        # Algoritmo mágico warp
-        # OPCION 1
-        # performance = [0, 0, 0]
-        # for game in user['total_games']:
-        #     performance[game['gameResult']] += 1
-        # score = ((performance[2]*3) + performance[1]) * (1 + (tor.totalPlayers / 100))
-        # usrTor.ibericonScore = (score*10)/tor.rounds
+        uri = current_app.config["BCP_API_USER"].replace("####event####", tor.bcpId).replace("####user####", usr.bcpId)
+        response = requests.get(uri)
+        infoUsr = json.loads(response.text)
 
-        # OPCION 2
-        # performance = [0, 0, 0]
-        # for game in user['total_games']:
-        #     performance[game['gameResult']] += 1
-        # playerModifier = 1 + tor.totalPlayers/100
-        # roundModifier = (tor.rounds/(tor.rounds+2)) - ((tor.rounds-len(user['total_games']))/30)
-        # performanceModifier = ((performance[2] * 3) + performance[1])
-        # usrTor.ibericonScore = playerModifier * roundModifier * performanceModifier
-
-        # OPCION 3
-        # performance = [0, 0, 0]
-        # victoryMod = 1
-        # for game in user['total_games']:
-        #     if game['gameResult'] > 1:
-        #         victoryMod += .05
-        #     elif game['gameResult'] < 1:
-        #         victoryMod -= .05
-        #     if game['gameResult'] == 2:
-        #         performance[game['gameResult']] += 1 * victoryMod
-        #     else:
-        #         performance[game['gameResult']] += 1
-        # playerModifier = 1 + tor.totalPlayers / 100
-        # roundModifier = (tor.rounds / (tor.rounds + 2)) - ((tor.rounds-len(user['total_games']))/30)
-        # performanceModifier = (len(user['total_games']))+((performance[2] * 3)+performance[1]-(performance[1]*.3))
-        # usrTor.ibericonScore = playerModifier * performanceModifier * roundModifier
-
-        # OPCION 4
-        performance = [0, 0, 0]
-        maxPoints = len(user['games']) * 3
-        maxIbericon = 3
-        playerModifier = 1 + tor.totalPlayers / 100
-        for game in user['games']:
-            performance[game['gameResult']] += 1
-        points = ((performance[2] * 3) + performance[1])
-        finalPoints = points * maxIbericon / maxPoints
-        usrTor.ibericonScore = finalPoints * playerModifier * 10
+        usrTor.bcpScore = infoUsr['data'][0]['ITCPoints']
 
         if fct:
             if fct not in usr.factions:
@@ -169,7 +130,7 @@ def manageTeams(db, tor):
                 performance[game['gameResult']] += 1
             points = ((performance[2] * 3) + performance[1])
             finalPoints = points * maxIbericon / maxPoints
-            usrTor.ibericonTeamScore = finalPoints * playerModifier * 10
+            usrTor.bcpTeamScore = finalPoints * playerModifier * 10
             usrTor.teamId = tm.id
 
             performance = [0, 0, 0]
@@ -180,7 +141,7 @@ def manageTeams(db, tor):
                 performance[game['gameResult']] += 1
             points = ((performance[2] * 3) + performance[1])
             finalPoints = points * maxIbericon / maxPoints
-            usrTor.ibericonScore = finalPoints * playerModifier * 10
+            usrTor.bcpScore = finalPoints * playerModifier * 10
 
             if fct:
                 if fct not in usr.factions:

@@ -17,7 +17,7 @@
                         {% for usr in fct.users[:3] %}
                             {% if usr.id == usFc.UserFaction.userId %}
                                 <td style="width: 70%;">{{ usr.bcpName | truncate(30, True, '...', 0) }}</td>
-                                <td>{{ '%0.2f'| format(usFc.UserFaction.ibericonScore) }}</td>
+                                <td>{{ '%0.2f'| format(usFc.UserFaction.bcpScore) }}</td>
                             {% endif %}
                         {% endfor %}
                     </tr>

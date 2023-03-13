@@ -75,7 +75,7 @@ def setPlayerPermission(database, userId, form):
 
 def getUser(pl):
     return current_app.config["database"].session.query(UserTournament, User, Tournament
-                                                        ).order_by(desc(UserTournament.ibericonScore)).filter(UserTournament.userId == pl
+                                                        ).order_by(desc(UserTournament.bcpScore)).filter(UserTournament.userId == pl
                                                                  ).join(Tournament,
                                                                         Tournament.id == UserTournament.tournamentId
                                                                         ).join(User,
@@ -83,7 +83,7 @@ def getUser(pl):
 
 
 def getUserBestTournaments(pl):
-    return UserTournament.query.filter_by(userId=int(pl)).order_by(desc(UserTournament.ibericonScore)).limit(4).all()
+    return UserTournament.query.filter_by(userId=int(pl)).order_by(desc(UserTournament.bcpScore)).limit(4).all()
 
 
 def getUserOnly(pl):
@@ -92,10 +92,10 @@ def getUserOnly(pl):
 
 def getUsers(qty=0):
     if qty > 0:
-        result = User.query.filter(User.bcpId != "0000000000").order_by(desc(User.ibericonScore)).all()
+        result = User.query.filter(User.bcpId != "0000000000").order_by(desc(User.bcpScore)).all()
         return result[0:qty-1]
     else:
-        return User.query.filter(User.bcpId != "0000000000").order_by(desc(User.ibericonScore)).all()
+        return User.query.filter(User.bcpId != "0000000000").order_by(desc(User.bcpScore)).all()
 
 
 def addUser(db, usr):

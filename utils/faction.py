@@ -5,7 +5,7 @@ from sqlalchemy import desc, asc
 
 def getFaction(fct):
     return current_app.config["database"].session.query(Faction, UserFaction).join(UserFaction).filter(
-        Faction.id == fct).order_by(desc(UserFaction.ibericonScore)).all()
+        Faction.id == fct).order_by(desc(UserFaction.bcpScore)).all()
 
 
 def getFactionOnly(fct):
@@ -14,7 +14,7 @@ def getFactionOnly(fct):
 
 def getFactions():
     factUsers = current_app.config["database"].session.query(Faction, UserFaction).join(UserFaction).filter(
-        Faction.id == UserFaction.factionId).order_by(Faction.name).order_by(desc(UserFaction.ibericonScore)).all()
+        Faction.id == UserFaction.factionId).order_by(Faction.name).order_by(desc(UserFaction.bcpScore)).all()
 
     return Faction.query.order_by(Faction.name).all(), factUsers
 

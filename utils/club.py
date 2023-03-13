@@ -19,10 +19,10 @@ def getClubOnly(te):
 
 def getClubs(qty=0):
     if qty > 0:
-        result = Club.query.order_by(desc(Club.ibericonScore)).all()
+        result = Club.query.order_by(desc(Club.bcpScore)).all()
         return result[0:qty-1]
     else:
-        return Club.query.order_by(desc(Club.ibericonScore)).all()
+        return Club.query.order_by(desc(Club.bcpScore)).all()
 
 
 def addClub(db, te):

@@ -19,10 +19,10 @@ def getTeamOnly(te):
 
 def getTeams(qty=0):
     if qty > 0:
-        result = Team.query.order_by(desc(Team.ibericonScore)).all()
+        result = Team.query.order_by(desc(Team.bcpScore)).all()
         return result[0:qty-1]
     else:
-        return Team.query.order_by(desc(Team.ibericonScore)).all()
+        return Team.query.order_by(desc(Team.bcpScore)).all()
 
 
 def getTeamUsers(team, allUsers):

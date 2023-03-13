@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2 class="link-h2">{{ userOnly.bcpName }}</h2>
-    <h4>Puntuación Ibericon: {{ '%0.2f'| format(userOnly.ibericonScore) }}</h4>
+    <h4>Puntuación Ibericon: {{ '%0.2f'| format(userOnly.bcpScore) }}</h4>
     <div class="table-wrapper">
         <table class="fl-table">
             <thead>
@@ -39,9 +39,9 @@
                                 <td>-</td>
                             {% endif %}
                             {% if usrTor.UserTournament.countingScore %}
-                                <td style="color: #FFF49B;">{{ '%0.2f'| format(usrTor.UserTournament.ibericonScore) }}</td>
+                                <td style="color: #FFF49B;">{{ '%0.2f'| format(usrTor.UserTournament.bcpScore) }}</td>
                             {% else %}
-                                <td>{{ '%0.2f'| format(usrTor.UserTournament.ibericonScore) }}</td>
+                                <td>{{ '%0.2f'| format(usrTor.UserTournament.bcpScore) }}</td>
                             {% endif %}
                         </tr>
                     {% endif %}

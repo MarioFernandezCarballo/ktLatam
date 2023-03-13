@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(200))
     shortName = db.Column(db.String(30))
     permissions = db.Column(db.Integer)
-    ibericonScore = db.Column(db.Float, default=0.0)
+    bcpScore = db.Column(db.Float, default=0.0)
     winRate = db.Column(db.Float)
     factions = db.relationship('Faction', secondary="userfaction", cascade='all,delete', back_populates='users')
     teams = db.relationship('Team', secondary="userteam", cascade='all,delete', back_populates='users')
@@ -28,7 +28,7 @@ class Team(db.Model):
     bcpId = db.Column(db.String(30), nullable=False)
     name = db.Column(db.String(50), nullable=False)
     shortName = db.Column(db.String(50))
-    ibericonScore = db.Column(db.Float, default=0.0)
+    bcpScore = db.Column(db.Float, default=0.0)
     users = db.relationship('User', secondary="userteam", back_populates='teams')
     tournaments = db.relationship('Tournament', secondary='usertournament', back_populates='teams', overlaps="tournaments")
 
@@ -39,7 +39,7 @@ class Club(db.Model):
     bcpId = db.Column(db.String(30), nullable=False)
     name = db.Column(db.String(50), nullable=False)
     shortName = db.Column(db.String(50))
-    ibericonScore = db.Column(db.Float, default=0.0)
+    bcpScore = db.Column(db.Float, default=0.0)
     users = db.relationship('User', secondary="userclub", back_populates='clubs')
     tournaments = db.relationship('Tournament', secondary='usertournament', back_populates='clubs', overlaps="tournaments")
 
@@ -83,8 +83,7 @@ class UserTournament(db.Model):
     position = db.Column(db.Integer)
     teamPosition = db.Column(db.Integer)
     bcpScore = db.Column(db.Float, default=0.0)
-    ibericonScore = db.Column(db.Float, default=0.0)
-    ibericonTeamScore = db.Column(db.Float, default=0.0)
+    bcpTeamScore = db.Column(db.Float, default=0.0)
     countingScore = db.Column(db.Boolean, default=False)
     performance = db.Column(db.String(500))
 
@@ -94,7 +93,7 @@ class UserFaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     factionId = db.Column(db.Integer, db.ForeignKey('faction.id'))
-    ibericonScore = db.Column(db.Float, default=0.0)
+    bcpScore = db.Column(db.Float, default=0.0)
 
 
 class UserTeam(db.Model):
@@ -102,7 +101,7 @@ class UserTeam(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     teamId = db.Column(db.Integer, db.ForeignKey('team.id'))
-    ibericonScore = db.Column(db.Float, default=0.0)
+    bcpScore = db.Column(db.Float, default=0.0)
 
 
 class UserClub(db.Model):
@@ -110,4 +109,4 @@ class UserClub(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     clubId = db.Column(db.Integer, db.ForeignKey('club.id'))
-    ibericonScore = db.Column(db.Float, default=0.0)
+    bcpScore = db.Column(db.Float, default=0.0)

@@ -6,7 +6,7 @@ from database import User, Team, Tournament, UserTournament, UserFaction, UserCl
 def updateStats(db, tor=None):
     if tor:
         for usr in tor.users:
-            best = db.session.query(UserTournament, Tournament).order_by(desc(UserTournament.ibericonScore)).filter(
+            best = db.session.query(UserTournament, Tournament).order_by(desc(UserTournament.bcpScore)).filter(
                 UserTournament.userId == usr.id).join(Tournament, Tournament.id == UserTournament.tournamentId).all()
             cities = {}
             score = 0
@@ -20,42 +20,42 @@ def updateStats(db, tor=None):
                         cities[to.Tournament.city] = 1
 
                     if cities[to.Tournament.city] <= 3:
-                        score += to.UserTournament.ibericonScore
+                        score += to.UserTournament.bcpScore
                         to.UserTournament.countingScore = True
                         counter += 1
                     if counter == 4:
                         break
-            usr.ibericonScore = score
+            usr.bcpScore = score
             for usrFct in UserFaction.query.filter_by(userId=usr.id).all():
                 score = 0
                 count = 0
                 for t in best:
                     if t.UserTournament.factionId == usrFct.factionId:
                         count += 1
-                        score += t.UserTournament.ibericonScore
+                        score += t.UserTournament.bcpScore
                     if count == 3:
                         break
-                usrFct.ibericonScore = score
+                usrFct.bcpScore = score
             for usrCl in UserClub.query.filter_by(userId=usr.id).all():
                 score = 0
                 count = 0
                 for t in best:
                     if t.UserTournament.clubId == usrCl.clubId:
                         count += 1
-                        score += t.UserTournament.ibericonScore
+                        score += t.UserTournament.bcpScore
                     if count == 3:
                         break
-                usrCl.ibericonScore = score
+                usrCl.bcpScore = score
         for tm in tor.teams:
-            best = db.session.query(UserTournament, Tournament).order_by(desc(UserTournament.ibericonScore)).filter(
+            best = db.session.query(UserTournament, Tournament).order_by(desc(UserTournament.bcpScore)).filter(
                 UserTournament.teamId == tm.id).join(Tournament, Tournament.id == UserTournament.tournamentId).all()
-            tm.ibericonScore = sum([t.UserTournament.ibericonTeamScore for t in best[:4]]) / 3  # Team Players
+            tm.bcpScore = sum([t.UserTournament.bcpTeamScore for t in best[:4]]) / 3  # Team Players
         for cl in Club.query.all():
-            best = UserClub.query.filter_by(clubId=cl.id).order_by(desc(UserClub.ibericonScore)).all()
-            cl.ibericonScore = sum([t.ibericonScore for t in best[:10]])
+            best = UserClub.query.filter_by(clubId=cl.id).order_by(desc(UserClub.bcpScore)).all()
+            cl.bcpScore = sum([t.bcpScore for t in best[:10]])
     else:
         for usr in User.query.all():
-            best = db.session.query(UserTournament, Tournament).order_by(desc(UserTournament.ibericonScore)).filter(
+            best = db.session.query(UserTournament, Tournament).order_by(desc(UserTournament.bcpScore)).filter(
                 UserTournament.userId == usr.id).join(Tournament, Tournament.id == UserTournament.tournamentId).all()
             cities = {}
             score = 0
@@ -69,38 +69,38 @@ def updateStats(db, tor=None):
                         cities[to.Tournament.city] = 1
 
                     if cities[to.Tournament.city] <= 3:
-                        score += to.UserTournament.ibericonScore
+                        score += to.UserTournament.bcpScore
                         to.UserTournament.countingScore = True
                         counter += 1
                     if counter == 4:
                         break
-            usr.ibericonScore = score
+            usr.bcpScore = score
             for usrFct in UserFaction.query.filter_by(userId=usr.id).all():
                 score = 0
                 count = 0
                 for t in best:
                     if t.UserTournament.factionId == usrFct.factionId:
                         count += 1
-                        score += t.UserTournament.ibericonScore
+                        score += t.UserTournament.bcpScore
                     if count == 3:
                         break
-                usrFct.ibericonScore = score
+                usrFct.bcpScore = score
             for usrCl in UserClub.query.filter_by(userId=usr.id).all():
                 score = 0
                 count = 0
                 for t in best:
                     if t.UserTournament.clubId == usrCl.clubId:
                         count += 1
-                        score += t.UserTournament.ibericonScore
+                        score += t.UserTournament.bcpScore
                     if count == 3:
                         break
-                usrCl.ibericonScore = score
+                usrCl.bcpScore = score
         for tm in Team.query.all():
-            best = db.session.query(UserTournament, Tournament).order_by(desc(UserTournament.ibericonTeamScore)).filter(
+            best = db.session.query(UserTournament, Tournament).order_by(desc(UserTournament.bcpTeamScore)).filter(
                 UserTournament.teamId == tm.id).join(Tournament, Tournament.id == UserTournament.tournamentId).all()
-            tm.ibericonScore = sum([t.UserTournament.ibericonTeamScore for t in best[:4]]) / 3  # Team Players
+            tm.bcpScore = sum([t.UserTournament.bcpTeamScore for t in best[:4]]) / 3  # Team Players
         for cl in Club.query.all():
-            best = UserClub.query.filter_by(clubId=cl.id).order_by(desc(UserClub.ibericonScore)).all()
-            cl.ibericonScore = sum([t.ibericonScore for t in best[:10]])
+            best = UserClub.query.filter_by(clubId=cl.id).order_by(desc(UserClub.bcpScore)).all()
+            cl.bcpScore = sum([t.bcpScore for t in best[:10]])
     db.session.commit()
     return 200
