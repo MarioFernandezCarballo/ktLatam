@@ -7,9 +7,9 @@ from utils.club import getClubs, getClub, getClubOnly
 clubBP = Blueprint('clubBluePrint', __name__)
 
 
-@clubBP.route("/clubs", methods={"GET", "POST"})
-def clubsEndPoint():
-    clb = getClubs()
+@clubBP.route("/clubs/<country>", methods={"GET", "POST"})
+def clubsEndPoint(country):
+    clb = getClubs(country)
     return render_template(
         'clubs.html',
         title="Clubes",

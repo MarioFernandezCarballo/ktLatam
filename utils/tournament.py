@@ -15,8 +15,8 @@ def getTournament(to):
     return Tournament.query.filter_by(id=to).first()
 
 
-def getAllTournaments():
-    return Tournament.query.all()
+def getAllTournaments(country):
+    return Tournament.query.all() if country == "latam" else Tournament.query.filter_by(country=country).all()
 
 
 def addNewTournament(db, form):
@@ -52,6 +52,7 @@ def manageTournament(db, info):
         name=info['name'].strip(),
         shortName=info['name'].replace(" ", "").lower(),
         city=city,
+        country=location.raw['address']['country_code'],
         isTeam=isTeamTournament,
         date=info['eventDate'].split("T")[0],
         totalPlayers=info['totalPlayers'],
@@ -66,9 +67,9 @@ def manageUsers(db, tor):
     response = requests.get(uri)
     info = json.loads(response.text)
     for user in info['data']:
-        usr = addUser(db, user)
+        usr = addUser(db, user, tor)
         fct = addFaction(db, user)
-        cl = addClub(db, user)
+        cl = addClub(db, user, tor)
         tor.users.append(usr)
         usrTor = UserTournament.query.filter_by(userId=usr.id).filter_by(tournamentId=tor.id).first()
         usrTor.position = user['placing']
@@ -77,9 +78,10 @@ def manageUsers(db, tor):
         uri = current_app.config["BCP_API_USER"].replace("####event####", tor.bcpId).replace("####user####", usr.bcpId)
         response = requests.get(uri)
         infoUsr = json.loads(response.text)
-
-        usrTor.bcpScore = infoUsr['data'][0]['ITCPoints']
-
+        for tournament in infoUsr['data']:
+            if tournament["eventId"] == tor.bcpId:
+                usrTor.bcpScore = tournament['ITCPoints']
+            break
         if fct:
             if fct not in usr.factions:
                 usr.factions.append(fct)
@@ -104,14 +106,14 @@ def manageTeams(db, tor):
     for teamPlacing in infoTeamPlacings['data']:
         team = [tpl for tpl in infoTeams['data'] if tpl['id'] == teamPlacing['id']][0]
         uss = getTeamUsers(team, infoUsers)
-        tm = addTeam(db, team)
+        tm = addTeam(db, team, tor)
         if tm:
             tor.teams.append(tm)
 
         for us in uss:
-            usr = addUser(db, us)
+            usr = addUser(db, us, tor)
             fct = addFaction(db, us)
-            cl = addClub(db, us)
+            cl = addClub(db, us, tor)
 
             tor.users.append(usr)
             tm.users.append(usr)

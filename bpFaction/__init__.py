@@ -20,9 +20,9 @@ def factionEndPoint(fact):
     )
 
 
-@factionBP.route("/factions", methods={"GET", "POST"})
-def factionsEndPoint():
-    fct, usrFct = getFactions()
+@factionBP.route("/factions/<country>", methods={"GET", "POST"})
+def factionsEndPoint(country):
+    fct, usrFct = getFactions(country)
     return render_template(
         'factions.html',
         title="Facciones",

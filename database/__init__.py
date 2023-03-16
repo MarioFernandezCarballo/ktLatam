@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     permissions = db.Column(db.Integer)
     bcpScore = db.Column(db.Float, default=0.0)
     winRate = db.Column(db.Float)
+    country = db.Column(db.String(50))
     factions = db.relationship('Faction', secondary="userfaction", cascade='all,delete', back_populates='users')
     teams = db.relationship('Team', secondary="userteam", cascade='all,delete', back_populates='users')
     clubs = db.relationship('Club', secondary="userclub", cascade='all,delete', back_populates='users')
@@ -29,6 +30,7 @@ class Team(db.Model):
     name = db.Column(db.String(50), nullable=False)
     shortName = db.Column(db.String(50))
     bcpScore = db.Column(db.Float, default=0.0)
+    country = db.Column(db.String(50))
     users = db.relationship('User', secondary="userteam", back_populates='teams')
     tournaments = db.relationship('Tournament', secondary='usertournament', back_populates='teams', overlaps="tournaments")
 
@@ -40,6 +42,7 @@ class Club(db.Model):
     name = db.Column(db.String(50), nullable=False)
     shortName = db.Column(db.String(50))
     bcpScore = db.Column(db.Float, default=0.0)
+    country = db.Column(db.String(50))
     users = db.relationship('User', secondary="userclub", back_populates='clubs')
     tournaments = db.relationship('Tournament', secondary='usertournament', back_populates='clubs', overlaps="tournaments")
 
@@ -62,6 +65,7 @@ class Tournament(db.Model):
     name = db.Column(db.String(100), nullable=False)
     shortName = db.Column(db.String(50))
     city = db.Column(db.String(50))
+    country = db.Column(db.String(50))
     date = db.Column(db.String(50))
     isTeam = db.Column(db.Boolean)
     totalPlayers = db.Column(db.Integer)

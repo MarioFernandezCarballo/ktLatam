@@ -76,50 +76,55 @@ h4{
 }
 
 /* NavBar Styles */
-
-nav {
-  margin: auto;
-  background: radial-gradient(circle, rgba(51,51,51,1) 0%, rgba(51,51,51,1) 97%, rgba(51,51,51,0) 100%);
-  padding: 5px;
-  text-align: center;
-  width: 51%;
-  position: sticky;
-  top: 0px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+/* Fixed sidenav, full height */
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
 }
 
-nav a {
-    text-align: center;
-    font-size: 15px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: white;
-    text-decoration: none;
-    margin: 0px 5px;
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
 }
 
-nav a:hover {
-    text-shadow: 0 0 10px #ff9100, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 25px #ff0000, 0 0 30px #FF601F, 0 0 40px #ff0000;
-    color: #fff;
-    transition: text-shadow 0.1s ease-in-out;
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
 }
 
-.nav-group {
-    display: flex;
-    justify-content: space-between;
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: #ff9100;
+  color: white;
 }
 
-.footer {
-    margin: auto;
-    background: radial-gradient(circle, rgba(51,51,51,1) 0%, rgba(51,51,51,1) 97%, rgba(51,51,51,0) 100%);
-    padding: 5px;
-    text-align: center;
-    width: 51%;
-    bottom: 0px;
-    display: flex;
-    justify-content: space-between;
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
 }
 
 /* Form Styles */
@@ -227,16 +232,6 @@ nav a:hover {
         margin-top: 5px;
     }
 
-    nav {
-      padding: 3px;
-      width: 91%;
-    }
-
-    nav a {
-        margin: 0px 3px;
-        font-size: 12px;
-    }
-
     .login a{
         margin-top: 10px;
     }
@@ -270,10 +265,6 @@ nav a:hover {
         margin-top: 15px;
         height: 70px;
     }
-    nav a {
-        margin: 0px 1px;
-        font-size: 8px;
-    }
 }
 @media only screen and (max-width: 250px) {
     .logo{
@@ -287,10 +278,6 @@ nav a:hover {
     }
     h4{
         margin-top: 2px;
-    }
-    nav a {
-        margin: 0px 10px;
-        font-size: 8px;
     }
     .table-wrapper{
         width: 99%;

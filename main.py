@@ -30,4 +30,3 @@ if __name__ == '__main__':
 # TODO
 #  - Hacer página 404
 #  - No dar informacion de la bd en html -> Eliminar caracteres especiales
-#  - Test

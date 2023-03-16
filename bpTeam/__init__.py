@@ -7,9 +7,9 @@ from utils.team import getTeams, getTeam, getTeamOnly
 teamBP = Blueprint('teamBluePrint', __name__)
 
 
-@teamBP.route("/teams", methods={"GET", "POST"})
-def teamsEndPoint():
-    tms = getTeams()
+@teamBP.route("/teams/<country>", methods={"GET", "POST"})
+def teamsEndPoint(country):
+    tms = getTeams(country)
     return render_template(
         'teams.html',
         title="Equipos",

@@ -17,20 +17,21 @@ def getClubOnly(te):
     return Club.query.filter_by(id=te).first()
 
 
-def getClubs(qty=0):
+def getClubs(country, qty=0):
     if qty > 0:
-        result = Club.query.order_by(desc(Club.bcpScore)).all()
+        result = Club.query.order_by(desc(Club.bcpScore)).all() if country == "latam" else Club.query.filter_by(country=country).order_by(desc(Club.bcpScore)).all()
         return result[0:qty-1]
     else:
-        return Club.query.order_by(desc(Club.bcpScore)).all()
+        return Club.query.order_by(desc(Club.bcpScore)).all() if country == "latam" else Club.query.filter_by(country=country).order_by(desc(Club.bcpScore)).all()
 
 
-def addClub(db, te):
+def addClub(db, te, tor):
     if te['team']:
         if not Club.query.filter_by(bcpId=te['teamId']).first():
             db.session.add(Club(
                 bcpId=te['teamId'],
                 name=te['team']['name'].strip(),
+                country=tor.country,
                 shortName=te['team']['name'].replace(" ", "").lower()
             ))
     db.session.commit()

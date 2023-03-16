@@ -6,9 +6,9 @@ from utils.user import getUsers, getUser, getUserOnly, getUserBestTournaments
 userBP = Blueprint('userBluePrint', __name__)
 
 
-@userBP.route("/users", methods={"GET", "POST"})
-def usersEndPoint():
-    usr = getUsers()
+@userBP.route("/users/<country>", methods={"GET", "POST"})
+def usersEndPoint(country):
+    usr = getUsers(country)
     return render_template(
         'users.html',
         title="Jugadores",

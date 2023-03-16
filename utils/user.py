@@ -90,19 +90,20 @@ def getUserOnly(pl):
     return User.query.filter_by(id=pl).first()
 
 
-def getUsers(qty=0):
+def getUsers(country, qty=0):
     if qty > 0:
-        result = User.query.filter(User.bcpId != "0000000000").order_by(desc(User.bcpScore)).all()
+        result = User.query.filter(User.bcpId != "0000000000").order_by(desc(User.bcpScore)).all() if country == "latam" else User.query.filter(User.bcpId != "0000000000").filter_by(country=country).order_by(desc(User.bcpScore)).all()
         return result[0:qty-1]
     else:
-        return User.query.filter(User.bcpId != "0000000000").order_by(desc(User.bcpScore)).all()
+        return User.query.filter(User.bcpId != "0000000000").order_by(desc(User.bcpScore)).all() if country == "latam" else User.query.filter(User.bcpId != "0000000000").filter_by(country=country).order_by(desc(User.bcpScore)).all()
 
 
-def addUser(db, usr):
+def addUser(db, usr, tor):
     if not User.query.filter_by(bcpId=usr['userId']).first():
         db.session.add(User(
             bcpId=usr['userId'],
             bcpName=usr['user']['firstName'].strip() + " " + usr['user']['lastName'].strip(),
+            country=tor.country,
             permissions=0
         ))
     db.session.commit()

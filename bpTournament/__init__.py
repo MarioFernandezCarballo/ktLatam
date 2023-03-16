@@ -8,9 +8,9 @@ from utils.tournament import getAllTournaments
 tournamentBP = Blueprint('tournamentBluePrint', __name__)
 
 
-@tournamentBP.route("/tournaments", methods={"GET", "POST"})
-def tournamentsEndPoint():
-    tors = getAllTournaments()
+@tournamentBP.route("/tournaments/<country>", methods={"GET", "POST"})
+def tournamentsEndPoint(country):
+    tors = getAllTournaments(country)
     return render_template(
         'tournaments.html',
         title="Torneos",

@@ -17,12 +17,12 @@ def getTeamOnly(te):
     return Team.query.filter_by(id=te).first()
 
 
-def getTeams(qty=0):
+def getTeams(country, qty=0):
     if qty > 0:
-        result = Team.query.order_by(desc(Team.bcpScore)).all()
+        result = Team.query.order_by(desc(Team.bcpScore)).all() if country == "latam" else Team.query.filter_by(country=country).order_by(desc(Team.bcpScore)).all()
         return result[0:qty-1]
     else:
-        return Team.query.order_by(desc(Team.bcpScore)).all()
+        return Team.query.order_by(desc(Team.bcpScore)).all() if country == "latam" else Team.query.filter_by(country=country).order_by(desc(Team.bcpScore)).all()
 
 
 def getTeamUsers(team, allUsers):
@@ -30,12 +30,13 @@ def getTeamUsers(team, allUsers):
     return [user for user in allUsers['data'] if user['objectId'] in teamUsersId]
 
 
-def addTeam(db, te):
+def addTeam(db, te, tor):
     teId = te['name'].replace(" ", "-").lower()
     if not Team.query.filter_by(bcpId=teId).first():
         db.session.add(Team(
             bcpId=teId,
             name=te['name'].strip(),
+            country=tor.country,
             shortName=te['name'].replace(" ", "").lower()
         ))
     db.session.commit()
