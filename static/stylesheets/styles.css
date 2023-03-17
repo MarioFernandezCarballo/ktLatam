@@ -6,23 +6,10 @@
 body{
     font-family: Helvetica;
     background-color: #000000;
-    background-image: url(img/background3.jpg);
-    background-image: -webkit-linear-gradient(left,
-        rgba(0,0,0,0.5) 0%,
-        rgba(0,0,0,0.3) 10%,
-        rgba(0,0,0,0.3) 90%,
-        rgba(0,0,0,0.5) 100%
-      ),
-      -webkit-linear-gradient(top,
-        rgba(0,0,0,0.9) 0%,
-        rgba(0,0,0,0.2) 30%,
-        rgba(0,0,0,0.2) 70%,
-        rgba(0,0,0,0.9) 100%
-      ),
-      url(img/background3.jpg);
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
+}
+.page{
+    display: flex;
+
 }
 .logo{
     background-image: url(img/logo.png);
@@ -30,11 +17,9 @@ body{
     background-position: center;
     background-repeat: no-repeat;
 
-    margin: auto;
-    max-width: 50%;
-    width: 150px;
+    margin-bottom: 10px;
+    width: 100%;
     height: 100px;
-    margin-top: 20px;
 }
 h2{
     text-align: center;
@@ -86,6 +71,14 @@ h4{
   background-color: #111;
   overflow-x: hidden;
   padding-top: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.nav-down {
+    margin-bottom: 40px;
 }
 
 /* Style the sidenav links and the dropdown button */
@@ -129,6 +122,27 @@ h4{
 
 /* Form Styles */
 
+.content {
+    background-image: url(img/background.jpg);
+    background-image: -webkit-linear-gradient(left,
+        rgba(0,0,0,0.5) 0%,
+        rgba(0,0,0,0.3) 10%,
+        rgba(0,0,0,0.3) 90%,
+        rgba(0,0,0,0.5) 100%
+      ),
+      -webkit-linear-gradient(top,
+        rgba(0,0,0,0.9) 0%,
+        rgba(0,0,0,0.2) 30%,
+        rgba(0,0,0,0.2) 70%,
+        rgba(0,0,0,0.9) 100%
+      ),
+      url(img/background.jpg);
+    background-attachment: fixed;
+    background-position: center;
+
+    margin-left: 200px;
+    width: 100%
+}
 .login a{
     margin: auto;
     margin-top: 20px;
@@ -211,9 +225,18 @@ h4{
 /* Responsive */
 
 @media only screen and (max-width: 920px) {
-    .logo{
-        margin-top: 20px;
-        height: 100px;
+    .logo {
+        height: 75px;
+    }
+    .sidenav {
+        width: 150px;
+    }
+    .sidenav a, .dropdown-btn {
+      padding: 4px 6px 4px 10px;
+      font-size: 15px;
+    }
+    .content {
+        margin-left: 150px;
     }
     h2{
         font-size: 18px;
@@ -261,14 +284,33 @@ h4{
 }
 
 @media only screen and (max-width: 420px) {
-    .logo{
-        margin-top: 15px;
-        height: 70px;
+    .logo {
+        height: 50px;
+    }
+    .sidenav {
+        width: 100px;
+    }
+    .sidenav a, .dropdown-btn {
+      padding: 2px 4px 2px 8px;
+      font-size: 12px;
+    }
+    .content {
+        margin-left: 100px;
     }
 }
 @media only screen and (max-width: 250px) {
-    .logo{
-        margin-top: 2px;
+    .logo {
+        height: 40px;
+    }
+    .sidenav {
+        width: 80px;
+    }
+    .sidenav a, .dropdown-btn {
+      padding: 1px 2px 1px 4px;
+      font-size: 8px;
+    }
+    .content {
+        margin-left: 80px;
     }
     h2{
         margin-top: 5px;

@@ -81,7 +81,7 @@ def manageUsers(db, tor):
         for tournament in infoUsr['data']:
             if tournament["eventId"] == tor.bcpId:
                 usrTor.bcpScore = tournament['ITCPoints']
-            break
+                break
         if fct:
             if fct not in usr.factions:
                 usr.factions.append(fct)

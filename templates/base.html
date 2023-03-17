@@ -7,80 +7,88 @@
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/styles.css') }}">
 </head>
 <body>
-    <div class="sidenav">
-        <a href="/">RLKT</a>
-        <a href="/about">Información</a>
-        <a href="/sponsor">Patrocinadores</a>
-        <button class="dropdown-btn">LATAM
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="/users/latam">Jugadores</a>
-            <a href="/factions/latam">Facciones</a>
-            <a href="/teams/latam">Equipos</a>
-            <a href="/clubs/latam">Clubes</a>
-            <a href="/tournaments/latam">Torneos</a>
+    <div class="page">
+        <div class="sidenav">
+            <div class="nav-up">
+                <div class="logo"></div>
+                <a href="/about">Información</a>
+                <a style="margin-bottom: 20px;" href="/sponsor">Patrocinadores</a>
+                <button class="dropdown-btn">LATAM
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a href="/users/latam">Jugadores</a>
+                    <a href="/factions/latam">Facciones</a>
+                    <a href="/teams/latam">Equipos</a>
+                    <a href="/clubs/latam">Clubes</a>
+                    <a href="/tournaments/latam">Torneos</a>
+                </div>
+                <button class="dropdown-btn country">Argentina
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a href="/users/ar">Jugadores</a>
+                    <a href="/factions/ar">Facciones</a>
+                    <a href="/teams/ar">Equipos</a>
+                    <a href="/clubs/ar">Clubes</a>
+                    <a href="/tournaments/ar">Torneos</a>
+                </div>
+                <button class="dropdown-btn country">Chile
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a href="/users/ch">Jugadores</a>
+                    <a href="/factions/ch">Facciones</a>
+                    <a href="/teams/ch">Equipos</a>
+                    <a href="/clubs/ch">Clubes</a>
+                    <a href="/tournaments/ch">Torneos</a>
+                </div>
+                <button class="dropdown-btn country">México
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a href="/users/mx">Jugadores</a>
+                    <a href="/factions/mx">Facciones</a>
+                    <a href="/teams/mx">Equipos</a>
+                    <a href="/clubs/mx">Clubes</a>
+                    <a href="/tournaments/mx">Torneos</a>
+                </div>
+                <button class="dropdown-btn country">Perú
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a href="/users/pe">Jugadores</a>
+                    <a href="/factions/pe">Facciones</a>
+                    <a href="/teams/pe">Equipos</a>
+                    <a href="/clubs/pe">Clubes</a>
+                    <a href="/tournaments/pe">Torneos</a>
+                </div>
+            </div>
+            <div class="nav-down">
+                {% if user %}
+                    <a href="#">{{ user.name }}</a>
+                    {% if user.permissions >= 12 %}
+                        <a href="/add/tournament">Añadir torneo</a>
+                    {% endif %}
+                    <a href="/logout">Desconectarse</a>
+                {% endif %}
+            </div>
         </div>
-        <button class="dropdown-btn">Argentina
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="/users/ar">Jugadores</a>
-            <a href="/factions/ar">Facciones</a>
-            <a href="/teams/ar">Equipos</a>
-            <a href="/clubs/ar">Clubes</a>
-            <a href="/tournaments/ar">Torneos</a>
-        </div>
-        <button class="dropdown-btn">Chile
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="/users/ch">Jugadores</a>
-            <a href="/factions/ch">Facciones</a>
-            <a href="/teams/ch">Equipos</a>
-            <a href="/clubs/ch">Clubes</a>
-            <a href="/tournaments/ch">Torneos</a>
-        </div>
-        <button class="dropdown-btn">México
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="/users/mx">Jugadores</a>
-            <a href="/factions/mx">Facciones</a>
-            <a href="/teams/mx">Equipos</a>
-            <a href="/clubs/mx">Clubes</a>
-            <a href="/tournaments/mx">Torneos</a>
-        </div>
-        <button class="dropdown-btn">Perú
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="/users/pe">Jugadores</a>
-            <a href="/factions/pe">Facciones</a>
-            <a href="/teams/pe">Equipos</a>
-            <a href="/clubs/pe">Clubes</a>
-            <a href="/tournaments/pe">Torneos</a>
-        </div>
-        {% if user %}
-        <a href="#">{{ user.name }}</a>
-        {% if user.permissions >= 12 %}
-            <a href="/add/tournament">Añadir torneo</a>
-        {% endif %}
-        <a href="/logout">Desconectarse</a>
-    {% endif %}
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        <div class="content">
+        {% block content %}
+        {% endblock %}
     </div>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class=flashes>
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-    <div class="logo"></div>
-    {% block content %}
-    {% endblock %}
+    </div>
+
     <script>
         /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
         var dropdown = document.getElementsByClassName("dropdown-btn");
