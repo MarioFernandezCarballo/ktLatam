@@ -33,7 +33,7 @@ def aboutEndPoint():
     )
 
 
-@genericBP.route("/sponsors", methods={"GET", "POST"})
+@genericBP.route("/sponsor", methods={"GET", "POST"})
 def sponsorsEndPoint():
     return render_template(
         'about.html',
