@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2 class="link-h2">{{ userOnly.bcpName }}</h2>
-    <h4>Puntuación Ibericon: {{ '%0.2f'| format(userOnly.bcpScore) }}</h4>
+    <h4>Puntuación: {{ '%0.2f'| format(userOnly.bcpScore) }}</h4>
     <div class="table-wrapper">
         <table class="fl-table">
             <thead>

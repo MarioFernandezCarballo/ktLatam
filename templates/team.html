@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2 class="link-h2">{{ team.name }}</h2>
-    <h4>Puntuación Ibericon: {{ '%0.2f'| format(team.bcpScore) }}</h4>
+    <h4>Puntuación: {{ '%0.2f'| format(team.bcpScore) }}</h4>
     {% for tor in team.tournaments %}
     <h3 class="link-h2" onclick="window.open('{{ tor.bcpUri }}', '_blank');">{{ tor.name }}</h3>
     <div class="table-wrapper">
