@@ -4,7 +4,7 @@ import json
 from flask import current_app
 from sqlalchemy import desc
 
-from password_strength import PasswordPolicy
+# from password_strength import PasswordPolicy
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from database import User, UserFaction, UserTournament, Tournament
@@ -13,13 +13,13 @@ from database import User, UserFaction, UserTournament, Tournament
 def userSignup(database, form):
     if form['username'].isalnum():
         if form['password'] == form['password1']:
-            policy = PasswordPolicy.from_names(
-                length=8,
-                uppercase=1,
-                numbers=1
-            )
-            if policy.test(form['password']):
-                return 401, None
+            #policy = PasswordPolicy.from_names(
+            #    length=8,
+            #    uppercase=1,
+            #    numbers=1
+            #)
+            #if policy.test(form['password']):
+            #    return 401, None
             hashed_password = generate_password_hash(form['password'], method='sha256')
             if User.query.filter_by(name=form['username']).first():
                 return 402, None
