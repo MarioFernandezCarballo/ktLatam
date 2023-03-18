@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+    <h1>{{ country }}</h1>
     {% for fct in factions %}
     <div class="table-wrapper">
         <h2 class="link-h2" onclick="location.href='/faction/{{ fct.id }}';">{{ fct.name }}</h2>

@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, current_app
 from flask_login import current_user
 
-from utils.user import getUsers, getUser, getUserOnly, getUserBestTournaments
+from utils.user import getUsers, getUser, getUserOnly
 
 userBP = Blueprint('userBluePrint', __name__)
 
@@ -13,6 +13,7 @@ def usersEndPoint(country):
         'users.html',
         title="Jugadores",
         users=usr,
+        country=current_app.config['COUNTRIES'][country],
         user=current_user if not current_user.is_anonymous else None
     )
 

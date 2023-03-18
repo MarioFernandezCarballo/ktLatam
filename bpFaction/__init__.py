@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, current_app
 from flask_login import current_user
 
 from utils.faction import getFaction, getFactions, getFactionOnly
@@ -28,5 +28,6 @@ def factionsEndPoint(country):
         title="Facciones",
         user=current_user if not current_user.is_anonymous else None,
         factions=fct,
+        country=current_app.config['COUNTRIES'][country],
         usrFct=usrFct
     )

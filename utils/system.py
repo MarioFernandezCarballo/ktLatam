@@ -34,6 +34,8 @@ def createApp(app):
     app.config["COLLABORATOR_USERNAME"] = config['collab-name']
     app.config["COLLABORATOR_PASSWORD"] = config['collab-password']
 
+    app.config["COUNTRIES"] = config['countries']
+
     loginManager.init_app(app)
     app.config["loginManager"] = loginManager
     jwt.init_app(app)

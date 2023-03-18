@@ -16,7 +16,10 @@ def getTournament(to):
 
 
 def getAllTournaments(country):
-    return Tournament.query.all() if country == "latam" else Tournament.query.filter_by(country=country).all()
+    tournaments = Tournament.query.all() if country == "latam" else Tournament.query.filter_by(country=country).all()
+    for tor in tournaments:
+        tor.country = current_app.config["COUNTRIES"][tor.country]
+    return tournaments
 
 
 def addNewTournament(db, form):

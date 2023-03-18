@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+    <h1>{{ country }}</h1>
     <h2 class="link-h2">Torneos</h2>
     <div class="table-wrapper">
         <table class="fl-table">
@@ -9,7 +10,7 @@
                 <th>Fecha</th>
                 <th>Tipo</th>
                 <th>Participantes</th>
-                <th>Comunidad</th>
+                <th>País</th>
             </tr>
             </thead>
             <tbody>
@@ -23,7 +24,7 @@
                         <td>Individual</td>
                     {% endif %}
                     <td>{{ tor.users|length }}</td>
-                    <td>{{ tor.city }}</td>
+                    <td>{{ tor.country }}</td>
                 </tr>
             {% endfor %}
             <tbody>

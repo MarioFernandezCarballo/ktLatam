@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2 class="link-h2" onclick="location.href='/users/latam';">Ranking Individual</h2>
+    <h1>General</h1>
+    <h2 class="link-h2" onclick="location.href='/users/latam';">Top 10 Ranking Individual</h2>
     <div class="table-wrapper">
         <table class="fl-table">
             <thead>
@@ -10,7 +11,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for us in users[:16] %}
+            {% for us in users[:10] %}
                 <tr onclick="location.href='/user/{{ us.id }}';">
                     <td style="width: 70%;">{{ us.bcpName | truncate(30, True, '...', 0) }}</td>
                     <td>{{ '%0.2f'| format(us.bcpScore) }}</td>
@@ -19,7 +20,7 @@
             <tbody>
         </table>
     </div>
-    <h2 class="link-h2" onclick="location.href='/teams/latam';">Ranking Equipos</h2>
+    <h2 class="link-h2" onclick="location.href='/clubs/latam';">Top 10 Ranking Clubes</h2>
     <div class="table-wrapper">
         <table class="fl-table">
             <thead>
@@ -29,26 +30,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for te in teams[:5] %}
-                <tr onclick="location.href='/team/{{ te.id }}';">
-                    <td style="width: 70%;">{{ te.name | truncate(30, True, '...', 0) }}</td>
-                    <td>{{ '%0.2f'| format(te.bcpScore) }}</td>
-                </tr>
-            {% endfor %}
-            <tbody>
-        </table>
-    </div>
-    <h2 class="link-h2" onclick="location.href='/clubs/latam';">Ranking Clubes</h2>
-    <div class="table-wrapper">
-        <table class="fl-table">
-            <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Puntuación</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for cl in clubs[:5] %}
+            {% for cl in clubs[:10] %}
                 <tr onclick="location.href='/club/{{ cl.id }}';">
                     <td style="width: 70%;">{{ cl.name | truncate(30, True, '...', 0) }}</td>
                     <td>{{ '%0.2f'| format(cl.bcpScore) }}</td>
