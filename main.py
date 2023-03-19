@@ -31,3 +31,4 @@ if __name__ == '__main__':
 #  - Hacer página 404
 #  - No dar informacion de la bd en html -> Eliminar caracteres especiales
 #  - Cambiar cinco mejores puntuaciones y diez mejores en equipos con tres máximo por persona
+#  - Borrar torneo

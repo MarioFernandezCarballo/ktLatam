@@ -28,7 +28,7 @@ def generalEndPoint():
 def aboutEndPoint():
     return render_template(
         'about.html',
-        title="About",
+        title="Información",
         user=current_user if not current_user.is_anonymous else None
     )
 
@@ -36,7 +36,7 @@ def aboutEndPoint():
 @genericBP.route("/sponsor", methods={"GET", "POST"})
 def sponsorsEndPoint():
     return render_template(
-        'about.html',
-        title="About",
+        'sponsor.html',
+        title="Patrocinios",
         user=current_user if not current_user.is_anonymous else None
     )

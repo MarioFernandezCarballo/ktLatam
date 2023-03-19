@@ -8,22 +8,14 @@ def updateStats(db, tor=None):
         for usr in tor.users:
             best = db.session.query(UserTournament, Tournament).order_by(desc(UserTournament.bcpScore)).filter(
                 UserTournament.userId == usr.id).join(Tournament, Tournament.id == UserTournament.tournamentId).all()
-            cities = {}
             score = 0
             counter = 0
             for to in best:
                 if not to.Tournament.isTeam:
-                    to.UserTournament.countingScore = False
-                    try:
-                        cities[to.Tournament.city] += 1
-                    except KeyError:
-                        cities[to.Tournament.city] = 1
-
-                    if cities[to.Tournament.city] <= 3:
-                        score += to.UserTournament.bcpScore
-                        to.UserTournament.countingScore = True
-                        counter += 1
-                    if counter == 4:
+                    score += to.UserTournament.bcpScore
+                    to.UserTournament.countingScore = True
+                    counter += 1
+                    if counter == 5:
                         break
             usr.bcpScore = score
             for usrFct in UserFaction.query.filter_by(userId=usr.id).all():
