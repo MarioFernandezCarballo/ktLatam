@@ -6,16 +6,16 @@
         <table class="fl-table">
             <thead>
             <tr>
+                <th></th>
                 <th>Nombre</th>
-                <th>Posición</th>
                 <th>Puntuación</th>
             </tr>
             </thead>
             <tbody>
             {% for te in teams %}
                 <tr onclick="location.href='/team/{{ te.id }}';">
-                    <td style="width: 60%;">{{ te.name | truncate(30, True, '...', 0) }}</td>
                     <td>{{ loop.index }}</td>
+                    <td style="width: 60%;">{{ te.name | truncate(30, True, '...', 0) }}</td>
                     <td>{{ '%0.2f'| format(te.bcpScore) }}</td>
                 </tr>
             {% endfor %}
