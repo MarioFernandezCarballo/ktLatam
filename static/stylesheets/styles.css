@@ -73,8 +73,38 @@ body{
     background-position: center;
     background-repeat: no-repeat;
 
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     height: 100px;
+}
+.logo-mini {
+    display: flex;
+    justify-content: center;
+}
+.about .logo-ivoox {
+    background-image: url(img/ivoox.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    margin: 15px;
+    height: 40px;
+    width: 40px;
+}
+.about .logo-yt {
+    background-image: url(img/youtube.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    margin: 15px;
+    height: 40px;
+    width: 40px;
+}
+.about .logo-ivoox:hover {
+    cursor: pointer;
+}
+.about .logo-yt:hover {
+    cursor: pointer;
 }
 .about .logo-krb {
     background-image: url(img/logo-krb.png);

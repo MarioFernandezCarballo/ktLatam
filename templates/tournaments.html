@@ -11,6 +11,11 @@
                 <th>Tipo</th>
                 <th>Participantes</th>
                 <th>País</th>
+                {% if user %}
+                    {% if user.permissions >= 12 %}
+                        <th>Eliminar</th>
+                    {% endif %}
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -25,9 +30,48 @@
                     {% endif %}
                     <td>{{ tor.users|length }}</td>
                     <td>{{ tor.country }}</td>
+                    {% if user %}
+                        {% if user.permissions >= 12 %}
+                            <td onclick="location.href='/delete/tournament/{{ tor.id }}';">Eliminar</td>
+                        {% endif %}
+                    {% endif %}
                 </tr>
             {% endfor %}
             <tbody>
         </table>
     </div>
+    {% if user %}
+        {% if user.permissions >= 12 %}
+            <h2 class="link-h2">Eliminar</h2>
+            <h3>Click sobre el que quieras eliminar</h3>
+            <div class="table-wrapper">
+                <table class="fl-table">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>Participantes</th>
+                        <th>País</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for tor in tors %}
+                        <tr onclick="location.href='/delete/tournament/{{ tor.id }}';">
+                            <td>{{ tor.name | truncate(30, True, '...', 0) }}</td>
+                            <td>{{ tor.date }}</td>
+                            {% if tor.isTeam %}
+                                <td>Equipos</td>
+                            {% else %}
+                                <td>Individual</td>
+                            {% endif %}
+                            <td>{{ tor.users|length }}</td>
+                            <td>{{ tor.country }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tbody>
+                </table>
+            </div>
+        {% endif %}
+    {% endif %}
 {% endblock %}

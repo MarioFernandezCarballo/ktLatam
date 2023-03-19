@@ -92,10 +92,10 @@ def getUserOnly(pl):
 
 def getUsers(country, qty=0):
     if qty > 0:
-        result = User.query.filter(User.bcpId != "0000000000").order_by(desc(User.bcpScore)).all() if country == "latam" else User.query.filter(User.bcpId != "0000000000").filter_by(country=country).order_by(desc(User.bcpScore)).all()
+        result = User.query.filter(User.bcpId != "0000000000").filter(User.bcpScore > 0).order_by(desc(User.bcpScore)).all() if country == "latam" else User.query.filter(User.bcpId != "0000000000").filter_by(country=country).order_by(desc(User.bcpScore)).all()
         return result[0:qty-1]
     else:
-        return User.query.filter(User.bcpId != "0000000000").order_by(desc(User.bcpScore)).all() if country == "latam" else User.query.filter(User.bcpId != "0000000000").filter_by(country=country).order_by(desc(User.bcpScore)).all()
+        return User.query.filter(User.bcpId != "0000000000").filter(User.bcpScore > 0).order_by(desc(User.bcpScore)).all() if country == "latam" else User.query.filter(User.bcpId != "0000000000").filter_by(country=country).order_by(desc(User.bcpScore)).all()
 
 
 def addUser(db, usr, tor):
