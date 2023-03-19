@@ -8,7 +8,6 @@
             <tr>
                 <th>Nombre</th>
                 <th>Fecha</th>
-                <th>Tipo</th>
                 <th>Participantes</th>
                 <th>País</th>
                 {% if user %}
@@ -23,11 +22,6 @@
                 <tr onclick="window.open('{{ tor.bcpUri }}', '_blank');">
                     <td>{{ tor.name | truncate(30, True, '...', 0) }}</td>
                     <td>{{ tor.date }}</td>
-                    {% if tor.isTeam %}
-                        <td>Equipos</td>
-                    {% else %}
-                        <td>Individual</td>
-                    {% endif %}
                     <td>{{ tor.users|length }}</td>
                     <td>{{ tor.country }}</td>
                     {% if user %}
