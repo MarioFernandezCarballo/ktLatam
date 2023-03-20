@@ -27,19 +27,7 @@ body{
     display: flex;
 }
 .logo{
-    background-image: -webkit-linear-gradient(left,
-        rgba(0,0,0,0.8) 0%,
-        rgba(0,0,0,0.1) 10%,
-        rgba(0,0,0,0.1) 90%,
-        rgba(0,0,0,0.8) 100%
-      ),
-      -webkit-linear-gradient(top,
-        rgba(0,0,0,0.7) 0%,
-        rgba(0,0,0,0) 5%,
-        rgba(0,0,0,0) 95%,
-        rgba(0,0,0,0.7) 100%
-      ),
-      url(img/logo.png);
+    background-image: url(img/logo.png);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
