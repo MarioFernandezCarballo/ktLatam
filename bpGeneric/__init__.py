@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, current_app
 from flask_login import current_user
 
-from utils.user import getUsers, getUserOnly
+from utils.user import getUsers
 from utils.team import getTeams
 from utils.club import getClubs
 
@@ -20,6 +20,7 @@ def generalEndPoint():
         users=usr,
         teams=tms,
         clubs=clb,
+        library=current_app.config['COUNTRIES'],
         user=current_user if not current_user.is_anonymous else None
     )
 

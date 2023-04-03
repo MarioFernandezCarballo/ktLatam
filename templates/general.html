@@ -8,6 +8,7 @@
             <tr>
                 <th>Nombre</th>
                 <th>Puntuación</th>
+                <th>País</th>
             </tr>
             </thead>
             <tbody>
@@ -15,6 +16,7 @@
                 <tr onclick="location.href='/user/{{ us.id }}';">
                     <td style="width: 70%;">{{ us.bcpName | truncate(30, True, '...', 0) }}</td>
                     <td>{{ '%0.2f'| format(us.bcpScore) }}</td>
+                    <td>{{ library[us.country] }}</td>
                 </tr>
             {% endfor %}
             <tbody>

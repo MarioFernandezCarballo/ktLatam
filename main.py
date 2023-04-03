@@ -32,3 +32,7 @@ if __name__ == '__main__':
 #  - No dar informacion de la bd en html -> Eliminar caracteres especiales
 #  - Cambiar cinco mejores puntuaciones y diez mejores en equipos con tres máximo por persona
 #  - Borrar torneo
+
+# TODO
+#  - Añadir counting en bd para clubs y facciones
+#  - Pensarlo bien para que quede bonico y pesioso
