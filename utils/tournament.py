@@ -54,7 +54,7 @@ def addNewTournament(db, form):
 def manageTournament(db, info):
     isTeamTournament = info['teamEvent']
     geoLocator = Nominatim(user_agent="geoapiExercises")
-    location = getLocation(geolocator, info)
+    location = getLocation(geoLocator, info)
     try:
         city = location.raw['address']['state_district']
     except KeyError:
