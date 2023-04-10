@@ -23,19 +23,21 @@ def updateStats(db):
     for cl in Club.query.all():
         cl.bcpScore = 0
         countClub = 0
-        for usr in cl.users:
-            usCl = UserClub.query.filter_by(clubId=cl.id).filter_by(userId=usr.id).first()
-            usCl.bcpScore = 0
-            count = 0
-            for t in UserTournament.query.filter_by(clubId=cl.id).filter_by(userId=usr.id).order_by(
-                    desc(UserTournament.bcpScore)).all():
-                t.countingScoreClub = False
-                count += 1
-                if count <= 3 and countClub <= 10:
-                    usCl.bcpScore += t.bcpScore
-                    cl.bcpScore += t.bcpScore
-                    t.countingScoreClub = True
-                    countClub += 1
+        usCl = UserClub.query.filter_by(clubId=cl.id).all()
+        for us in usCl:
+            us.bcpScore = 0.0
+            us.countingScore = 0
+        for t in UserTournament.query.filter_by(clubId=cl.id).order_by(desc(UserTournament.bcpScore)).all():
+            t.countingScoreClub = False
+            for us in usCl:
+                if us.userId == t.userId:
+                    if us.countingScore < 3 and countClub < 10:
+                        us.bcpScore += t.bcpScore
+                        cl.bcpScore += t.bcpScore
+                        countClub += 1
+                        t.countingScoreClub = True
+                        us.countingScore += 1
+                    break
     for fct in Faction.query.all():
         fct.bcpScore = 0
         for usr in fct.users:
