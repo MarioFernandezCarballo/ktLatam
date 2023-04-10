@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>{{ country }}</h1>
+    <h1>{{ library[country] }}</h1>
     <h2 class="link-h2">Ranking Clubes</h2>
     <div class="table-wrapper">
         <table class="fl-table">
@@ -9,6 +9,9 @@
                 <th></th>
                 <th>Nombre</th>
                 <th>Puntuación</th>
+                {% if country == 'latam' %}
+                    <th>País</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -17,6 +20,9 @@
                     <td>{{ loop.index }}</td>
                     <td style="width: 60%;">{{ cl.name | truncate(30, True, '...', 0) }}</td>
                     <td>{{ '%0.2f'| format(cl.bcpScore) }}</td>
+                    {% if country == 'latam' %}
+                        <td>{{ library[cl.country] }}</td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             <tbody>

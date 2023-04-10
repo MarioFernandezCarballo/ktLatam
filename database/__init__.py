@@ -89,6 +89,8 @@ class UserTournament(db.Model):
     bcpScore = db.Column(db.Float, default=0.0)
     bcpTeamScore = db.Column(db.Float, default=0.0)
     countingScore = db.Column(db.Boolean, default=False)
+    countingScoreClub = db.Column(db.Boolean, default=False)
+    countingScoreFaction = db.Column(db.Boolean, default=False)
     performance = db.Column(db.String(500))
 
 
@@ -106,6 +108,7 @@ class UserTeam(db.Model):
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     teamId = db.Column(db.Integer, db.ForeignKey('team.id'))
     bcpScore = db.Column(db.Float, default=0.0)
+    countingScore = db.Column(db.Integer, default=0)
 
 
 class UserClub(db.Model):
@@ -114,3 +117,4 @@ class UserClub(db.Model):
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     clubId = db.Column(db.Integer, db.ForeignKey('club.id'))
     bcpScore = db.Column(db.Float, default=0.0)
+    countingScore = db.Column(db.Integer, default=0)

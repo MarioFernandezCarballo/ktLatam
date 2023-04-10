@@ -1,5 +1,6 @@
 import requests
 import json
+import datetime
 
 from flask import current_app
 from geopy.geocoders import Nominatim
@@ -19,6 +20,7 @@ def getAllTournaments(country):
     tournaments = Tournament.query.all() if country == "latam" else Tournament.query.filter_by(country=country).all()
     for tor in tournaments:
         tor.country = current_app.config["COUNTRIES"][tor.country]
+    tournaments.sort(key=lambda tour: datetime.datetime.strptime(tour.date, "%Y-%m-%d"), reverse=True)
     return tournaments
 
 
@@ -27,6 +29,8 @@ def addNewTournament(db, form):
         eventId = form["bcpLink"].split("/")[-1].split("?")[0]
         uri = current_app.config["BCP_API_EVENT"].replace("####event####", eventId)
         response = requests.get(uri)
+        if response.status_code == 404:
+            return 400, None
         info = json.loads(response.text)
         if not info['ended']:
             return 400, None
@@ -37,6 +41,11 @@ def addNewTournament(db, form):
             manageTeams(db, tor)
         else:
             manageUsers(db, tor)
+        file = open('backup/tournaments.txt', 'r+')
+        tors = file.read().split("\n")
+        if form['bcpLink'] not in tors:
+            file.write("\n"+form['bcpLink'].replace(" ", ""))
+        file.close()
         return 200, tor
     return 400, None
 

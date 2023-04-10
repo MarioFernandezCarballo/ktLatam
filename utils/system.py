@@ -1,12 +1,13 @@
 import json
 import secrets
 import os
-import requests
 
 from werkzeug.security import generate_password_hash
 
 from database import db, User
 from bpAuth import loginManager, jwt
+from utils.tournament import addNewTournament
+from utils.general import updateStats
 
 
 def createApp(app):
@@ -54,6 +55,7 @@ def createDatabase(app):
             createTables(app.config['database'])
             createAdmin(app)
             createCollaborator(app)
+            lookForTournaments(app.config['database'])
             file = open('database.txt', 'w')
             file.write("Database Created")
             file.close()
@@ -95,3 +97,14 @@ def createCollaborator(app):
     )
     app.config['database'].session.add(new_user)
     app.config['database'].session.commit()
+
+
+def lookForTournaments(database):
+    file = open('backup/tournaments.txt', 'r').read()
+    for to in file.split('\n'):
+        form = {
+            'bcpLink': to
+        }
+        result, tor = addNewTournament(database, form)
+        print("added " + to if result == 200 else "not Added" + to)
+    updateStats(database)

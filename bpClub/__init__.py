@@ -14,7 +14,8 @@ def clubsEndPoint(country):
         'clubs.html',
         title="Clubes",
         clubs=clb,
-        country=current_app.config['COUNTRIES'][country],
+        country=country,
+        library=current_app.config['COUNTRIES'],
         user=current_user if not current_user.is_anonymous else None
     )
 

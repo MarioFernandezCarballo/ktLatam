@@ -29,6 +29,7 @@
             <tr>
                 <th>Nombre</th>
                 <th>Puntuación</th>
+                <th>País</th>
             </tr>
             </thead>
             <tbody>
@@ -36,6 +37,7 @@
                 <tr onclick="location.href='/club/{{ cl.id }}';">
                     <td style="width: 70%;">{{ cl.name | truncate(30, True, '...', 0) }}</td>
                     <td>{{ '%0.2f'| format(cl.bcpScore) }}</td>
+                    <td>{{ library[cl.country] }}</td>
                 </tr>
             {% endfor %}
             <tbody>

@@ -1,4 +1,5 @@
 import os
+import json
 
 from flask import Blueprint, redirect, url_for, current_app, request, flash, render_template
 from flask_login import login_required, current_user
@@ -36,7 +37,7 @@ def addNewTournamentEndPoint():
     if request.method == 'POST':
         status, tor = addNewTournament(current_app.config['database'], request.form)
         if status == 200:
-            if updateStats(current_app.config['database'], tor) == 200:
+            if updateStats(current_app.config['database']) == 200:
                 flash("OK")
             else:
                 flash("No OK")
@@ -59,6 +60,17 @@ def deleteTournamentEndPoint(to):
             flash("OK")
         else:
             flash("NOK")
+    else:
+        flash("NOK")
+    return redirect(url_for('genericBluePrint.generalEndPoint'))
+
+
+@adminBP.route("/update", methods={"GET", "POST"})
+@login_required
+@only_collaborator
+def updateEndPoint():
+    if updateStats(current_app.config['database']) == 200:
+        flash("OK")
     else:
         flash("NOK")
     return redirect(url_for('genericBluePrint.generalEndPoint'))
