@@ -22,18 +22,25 @@ def updateStats(db):
         tm.bcpScore = sum([t.UserTournament.bcpTeamScore for t in best[:4]]) / 3  # Team Players
     for cl in Club.query.all():
         cl.bcpScore = 0
+        countClub = 0
         for usr in cl.users:
-            usFct = UserClub.query.filter_by(clubId=cl.id).filter_by(userId=usr.id).first()
-            usFct.bcpScore = 0
+            usCl = UserClub.query.filter_by(clubId=cl.id).filter_by(userId=usr.id).first()
+            usCl.bcpScore = 0
             count = 0
             for t in UserTournament.query.filter_by(clubId=cl.id).filter_by(userId=usr.id).order_by(
                     desc(UserTournament.bcpScore)).all():
                 t.countingScoreClub = False
                 count += 1
-                if count <= 4:
-                    usFct.bcpScore += t.bcpScore
-                    cl.bcpScore += t.bcpScore
-                    t.countingScoreClub = True
+                if countClub <= 10:
+                    if count <= 3:
+                        usCl.bcpScore += t.bcpScore
+                        cl.bcpScore += t.bcpScore
+                        t.countingScoreClub = True
+                        countClub += 1
+                else:
+                    break
+            if countClub > 10:
+                break
     for fct in Faction.query.all():
         fct.bcpScore = 0
         for usr in fct.users:
