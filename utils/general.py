@@ -31,16 +31,11 @@ def updateStats(db):
                     desc(UserTournament.bcpScore)).all():
                 t.countingScoreClub = False
                 count += 1
-                if countClub <= 10:
-                    if count <= 3:
-                        usCl.bcpScore += t.bcpScore
-                        cl.bcpScore += t.bcpScore
-                        t.countingScoreClub = True
-                        countClub += 1
-                else:
-                    break
-            if countClub > 10:
-                break
+                if count <= 3 and countClub <= 10:
+                    usCl.bcpScore += t.bcpScore
+                    cl.bcpScore += t.bcpScore
+                    t.countingScoreClub = True
+                    countClub += 1
     for fct in Faction.query.all():
         fct.bcpScore = 0
         for usr in fct.users:
