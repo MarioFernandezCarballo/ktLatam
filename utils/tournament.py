@@ -4,6 +4,7 @@ import datetime
 
 from flask import current_app
 from geopy.geocoders import Nominatim
+from geopy.exc import GeocoderTimedOut
 
 from database import Tournament, UserTournament
 from utils.user import addUser
@@ -53,7 +54,7 @@ def addNewTournament(db, form):
 def manageTournament(db, info):
     isTeamTournament = info['teamEvent']
     geoLocator = Nominatim(user_agent="geoapiExercises")
-    location = geoLocator.reverse(str(info['coordinate'][1]) + "," + str(info['coordinate'][0]))
+    location = getLocation(geolocator, info)
     try:
         city = location.raw['address']['state_district']
     except KeyError:
@@ -174,3 +175,11 @@ def deleteTournament(db, to):
     db.session.commit()
     return 200
 
+
+def getLocation(geoLocator, info, attempt=1, maxAttempts=10):
+    try:
+        geoLocator.reverse(str(info['coordinate'][1]) + "," + str(info['coordinate'][0]))
+    except GeocoderTimedOut:
+        if attempt <= maxAttempts:
+            return getLocation(geoLocator, info, attempt=attempt+1)
+        raise
