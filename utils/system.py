@@ -55,7 +55,7 @@ def createDatabase(app):
             createTables(app.config['database'])
             createAdmin(app)
             createCollaborator(app)
-            # lookForTournaments(app.config['database'])
+            lookForTournaments(app.config['database'])
             file = open('database.txt', 'w')
             file.write("Database Created")
             file.close()

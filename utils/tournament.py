@@ -178,7 +178,7 @@ def deleteTournament(db, to):
 
 def getLocation(geoLocator, info, attempt=1, maxAttempts=10):
     try:
-        geoLocator.reverse(str(info['coordinate'][1]) + "," + str(info['coordinate'][0]))
+        return geoLocator.reverse(str(info['coordinate'][1]) + "," + str(info['coordinate'][0]), timeout=1000)
     except GeocoderTimedOut:
         if attempt <= maxAttempts:
             return getLocation(geoLocator, info, attempt=attempt+1)
