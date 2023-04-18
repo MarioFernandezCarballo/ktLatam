@@ -4,9 +4,9 @@ import json
 from flask import Blueprint, redirect, url_for, current_app, request, flash, render_template
 from flask_login import login_required, current_user
 
-from utils.general import updateStats
+from utils.general import updateStats, updateCountries
 from utils.user import setPlayerPermission, getUserOnly
-from utils.decorators import only_left_hand, only_collaborator
+from utils.decorators import only_left_hand, only_collaborator, only_admin
 from utils.tournament import addNewTournament, deleteTournament
 
 adminBP = Blueprint('adminBluePrint', __name__)
@@ -83,3 +83,11 @@ def webhook():
         return 'Updated PythonAnywhere successfully', 200
     else:
         return 'Wrong event type', 400
+
+
+@adminBP.route('/update_countries', methods=['GET'])
+@login_required
+@only_admin
+def updateCountries():
+    updateCountries(current_app)
+    return 'Updated PythonAnywhere successfully', 200

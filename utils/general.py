@@ -53,3 +53,15 @@ def updateStats(db):
                     t.countingScoreFaction = True
     db.session.commit()
     return 200
+
+
+def updateCountries(app):
+    for user in User.query.all():
+        user.country = app.config["COUNTRIES"][user.country]
+    for team in Team.query.all():
+        team.country = app.config["COUNTRIES"][team.country]
+    for club in Club.query.all():
+        club.country = app.config["COUNTRIES"][club.country]
+    for tournament in Tournament.query.all():
+        tournament.country = app.config["COUNTRIES"][tournament.country]
+    app.config['database'].session.commit()
