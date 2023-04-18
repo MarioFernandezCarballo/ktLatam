@@ -57,11 +57,15 @@ def updateStats(db):
 
 def updateCountries(app):
     for user in User.query.all():
-        user.country = app.config["COUNTRIES"][user.country]
+        if user.country in app.config["COUNTRIES"].keys():
+            user.country = app.config["COUNTRIES"][user.country]
     for team in Team.query.all():
-        team.country = app.config["COUNTRIES"][team.country]
+        if team.country in app.config["COUNTRIES"].keys():
+            team.country = app.config["COUNTRIES"][team.country]
     for club in Club.query.all():
-        club.country = app.config["COUNTRIES"][club.country]
+        if club.country in app.config["COUNTRIES"].keys():
+            club.country = app.config["COUNTRIES"][club.country]
     for tournament in Tournament.query.all():
-        tournament.country = app.config["COUNTRIES"][tournament.country]
+        if tournament.country in app.config["COUNTRIES"].keys():
+            tournament.country = app.config["COUNTRIES"][tournament.country]
     app.config['database'].session.commit()
