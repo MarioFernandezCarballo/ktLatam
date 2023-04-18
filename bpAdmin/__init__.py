@@ -88,6 +88,6 @@ def webhook():
 @adminBP.route('/update_countries', methods=['GET'])
 @login_required
 @only_collaborator
-def updateCountries():
+def updateNewCountries():
     updateCountries(current_app)
     return 'Updated PythonAnywhere successfully', 200
