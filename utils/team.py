@@ -19,10 +19,10 @@ def getTeamOnly(te):
 
 def getTeams(country, qty=0):
     if qty > 0:
-        result = Team.query.order_by(desc(Team.bcpScore)).all() if country == "latam" else Team.query.filter_by(country=country).order_by(desc(Team.bcpScore)).all()
+        result = Team.query.order_by(desc(Team.bcpScore)).all() if country == "latam" else Team.query.filter_by(country=current_app.config["COUNTRIES"][country]).order_by(desc(Team.bcpScore)).all()
         return result[0:qty-1]
     else:
-        return Team.query.order_by(desc(Team.bcpScore)).all() if country == "latam" else Team.query.filter_by(country=country).order_by(desc(Team.bcpScore)).all()
+        return Team.query.order_by(desc(Team.bcpScore)).all() if country == "latam" else Team.query.filter_by(country=current_app.config["COUNTRIES"][country]).order_by(desc(Team.bcpScore)).all()
 
 
 def getTeamUsers(team, allUsers):

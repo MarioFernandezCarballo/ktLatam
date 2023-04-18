@@ -3,7 +3,6 @@ import json
 import datetime
 
 from flask import current_app
-from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
 
 from database import Tournament, UserTournament
@@ -18,9 +17,7 @@ def getTournament(to):
 
 
 def getAllTournaments(country):
-    tournaments = Tournament.query.all() if country == "latam" else Tournament.query.filter_by(country=country).all()
-    for tor in tournaments:
-        tor.country = current_app.config["COUNTRIES"][tor.country]
+    tournaments = Tournament.query.all() if country == "latam" else Tournament.query.filter_by(country=current_app.config["COUNTRIES"][country]).all()
     tournaments.sort(key=lambda tour: datetime.datetime.strptime(tour.date, "%Y-%m-%d"), reverse=True)
     return tournaments
 
@@ -53,19 +50,14 @@ def addNewTournament(db, form):
 
 def manageTournament(db, info):
     isTeamTournament = info['teamEvent']
-    geoLocator = Nominatim(user_agent="geoapiExercises")
-    location = getLocation(geoLocator, info)
-    try:
-        city = location.raw['address']['state_district']
-    except KeyError:
-        city = location.raw['address']['city']
+    location = current_app.config["COUNTRIES"][info['country'].lower()]
     db.session.add(Tournament(
         bcpId=info['id'],
         bcpUri="https://www.bestcoastpairings.com/event/" + info['id'],
         name=info['name'].strip(),
         shortName=info['name'].replace(" ", "").lower(),
-        city=city,
-        country=location.raw['address']['country_code'],
+        city=location,
+        country=location,
         isTeam=isTeamTournament,
         date=info['eventDate'].split("T")[0],
         totalPlayers=info['totalPlayers'],

@@ -19,10 +19,10 @@ def getClubOnly(te):
 
 def getClubs(country, qty=0):
     if qty > 0:
-        result = Club.query.filter(Club.bcpScore > 0).order_by(desc(Club.bcpScore)).all() if country == "latam" else Club.query.filter_by(country=country).order_by(desc(Club.bcpScore)).all()
+        result = Club.query.filter(Club.bcpScore > 0).order_by(desc(Club.bcpScore)).all() if country == "latam" else Club.query.filter_by(country=current_app.config["COUNTRIES"][country]).order_by(desc(Club.bcpScore)).all()
         return result[0:qty-1]
     else:
-        return Club.query.filter(Club.bcpScore > 0).order_by(desc(Club.bcpScore)).all() if country == "latam" else Club.query.filter_by(country=country).order_by(desc(Club.bcpScore)).all()
+        return Club.query.filter(Club.bcpScore > 0).order_by(desc(Club.bcpScore)).all() if country == "latam" else Club.query.filter_by(country=current_app.config["COUNTRIES"][country]).order_by(desc(Club.bcpScore)).all()
 
 
 def addClub(db, te, tor):

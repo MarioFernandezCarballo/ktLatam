@@ -19,7 +19,7 @@ def getFactions(country):
             desc(UserFaction.bcpScore)).all()
     else:
         factUsers = current_app.config["database"].session.query(Faction, UserFaction, User).filter(
-            Faction.id == UserFaction.factionId).filter(UserFaction.userId == User.id).filter(User.country == country).order_by(Faction.name).order_by(
+            Faction.id == UserFaction.factionId).filter(UserFaction.userId == User.id).filter(User.country == current_app.config["COUNTRIES"][country]).order_by(Faction.name).order_by(
             desc(UserFaction.bcpScore)).all()
     return Faction.query.order_by(Faction.name).all(), factUsers
 
