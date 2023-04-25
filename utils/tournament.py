@@ -49,7 +49,7 @@ def addNewTournament(db, form):
 
 
 def manageTournament(db, info):
-    isTeamTournament = info['teamEvent']
+    isTeamTournament = False  # info['teamEvent'] TODO for 2024
     location = current_app.config["COUNTRIES"][info['country'].lower()]
     db.session.add(Tournament(
         bcpId=info['id'],
