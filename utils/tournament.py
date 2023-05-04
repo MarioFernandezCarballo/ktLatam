@@ -50,7 +50,10 @@ def addNewTournament(db, form):
 
 def manageTournament(db, info):
     isTeamTournament = False  # info['teamEvent'] TODO for 2024
-    location = current_app.config["COUNTRIES"][info['country'].lower()]
+    try:
+        location = current_app.config["COUNTRIES"][info['country'].lower()]
+    except KeyError:
+        location = info['country']
     db.session.add(Tournament(
         bcpId=info['id'],
         bcpUri="https://www.bestcoastpairings.com/event/" + info['id'],
