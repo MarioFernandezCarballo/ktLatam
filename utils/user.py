@@ -25,7 +25,7 @@ def userSignup(database, form):
                 return 402, None
             if "https://www.bestcoastpairings.com/user/" in form['bcpLink']:
                 bcpId = form["bcpLink"].split("/")[-1].split("?")[0]
-                data = requests.get(current_app.config["BCP_API_USER"].replace("####user####", bcpId))
+                data = requests.get(current_app.config["BCP_API_USER"].replace("####user####", bcpId), headers=current_app.config["BCP_API_HEADERS"])
                 user = json.loads(data.text)
                 if not user:
                     return 402, None

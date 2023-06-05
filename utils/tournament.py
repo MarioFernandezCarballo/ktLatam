@@ -26,7 +26,7 @@ def addNewTournament(db, form):
     if "https://www.bestcoastpairings.com/event/" in form['bcpLink']:
         eventId = form["bcpLink"].split("/")[-1].split("?")[0]
         uri = current_app.config["BCP_API_EVENT"].replace("####event####", eventId)
-        response = requests.get(uri)
+        response = requests.get(uri, headers=current_app.config["BCP_API_HEADERS"])
         if response.status_code == 404:
             return 400, None
         info = json.loads(response.text)
@@ -72,7 +72,7 @@ def manageTournament(db, info):
 
 def manageUsers(db, tor):
     uri = current_app.config["BCP_API_USERS"].replace("####event####", tor.bcpId)
-    response = requests.get(uri)
+    response = requests.get(uri, headers=current_app.config["BCP_API_HEADERS"])
     info = json.loads(response.text)
     for user in info['data']:
         usr = addUser(db, user, tor)
@@ -84,7 +84,7 @@ def manageUsers(db, tor):
         usrTor.performance = json.dumps(user['total_games'])
 
         uri = current_app.config["BCP_API_USER"].replace("####event####", tor.bcpId).replace("####user####", usr.bcpId)
-        response = requests.get(uri)
+        response = requests.get(uri, headers=current_app.config["BCP_API_HEADERS"])
         infoUsr = json.loads(response.text)
         for tournament in infoUsr['data']:
             if tournament["eventId"] == tor.bcpId and tournament['placing'] == user['placing']:
@@ -103,13 +103,13 @@ def manageUsers(db, tor):
 
 def manageTeams(db, tor):
     uri = current_app.config["BCP_API_TEAM"].replace("####event####", tor.bcpId)
-    response = requests.get(uri)
+    response = requests.get(uri, headers=current_app.config["BCP_API_HEADERS"])
     infoTeams = json.loads(response.text)
     uri = current_app.config["BCP_API_TEAM_PLACINGS"].replace("####event####", tor.bcpId)
-    response = requests.get(uri)
+    response = requests.get(uri, headers=current_app.config["BCP_API_HEADERS"])
     infoTeamPlacings = json.loads(response.text)
     uri = current_app.config["BCP_API_USERS"].replace("####event####", tor.bcpId)
-    response = requests.get(uri)
+    response = requests.get(uri, headers=current_app.config["BCP_API_HEADERS"])
     infoUsers = json.loads(response.text)
     for teamPlacing in infoTeamPlacings['data']:
         team = [tpl for tpl in infoTeams['data'] if tpl['id'] == teamPlacing['id']][0]
