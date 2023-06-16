@@ -92,7 +92,7 @@ def manageUsers(db, tor):
         response = requests.get(uri, headers=current_app.config["BCP_API_HEADERS"])
         infoUsr = json.loads(response.text)
         for tournament in infoUsr['data']:
-            if tournament["eventId"] == tor.bcpId:
+            if tournament["eventId"] == tor.bcpId and tournament['placing'] == user['placing']:
                 usrTor.bcpScore = tournament['ITCPoints']
                 usrTor.position = tournament['placing']
                 break
