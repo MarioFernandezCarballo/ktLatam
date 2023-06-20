@@ -19,7 +19,7 @@ def getTournament(to):
 def getAllTournaments(country):
     tournaments = Tournament.query.all() if country == "latam" else Tournament.query.filter_by(country=current_app.config["COUNTRIES"][country]).all()
     for tor in tournaments:
-        tor.country.replace("ú", "u")
+        tor.country.replace("Peru", "Perú")
     tournaments.sort(key=lambda tour: datetime.datetime.strptime(tour.date, "%Y-%m-%d"), reverse=True)
     return tournaments
 
