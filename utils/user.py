@@ -113,6 +113,6 @@ def addUser(db, usr, tor):
 def updateUsers(db):
     users = User.query.all()
     for usr in users:
-        if usr.country:
-            usr.country.replace("Perú", "Peru")
+        if usr.country == "Perú":
+            usr.country = "Peru"
     db.session.commit()

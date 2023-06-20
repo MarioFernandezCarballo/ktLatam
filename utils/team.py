@@ -46,5 +46,6 @@ def addTeam(db, te, tor):
 def updateTeam(db):
     users = Team.query.all()
     for usr in users:
-        usr.country.replace("Perú", "Peru")
+        if usr.country == "Perú":
+            usr.country = "Peru"
     db.session.commit()

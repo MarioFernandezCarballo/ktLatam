@@ -41,5 +41,6 @@ def addClub(db, te, tor):
 def updateClub(db):
     users = Club.query.all()
     for usr in users:
-        usr.country.replace("Perú", "Peru")
+        if usr.country == "Perú":
+            usr.country = "Peru"
     db.session.commit()
