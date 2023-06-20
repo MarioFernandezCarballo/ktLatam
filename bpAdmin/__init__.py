@@ -5,7 +5,9 @@ from flask import Blueprint, redirect, url_for, current_app, request, flash, ren
 from flask_login import login_required, current_user
 
 from utils.general import updateStats, updateCountries
-from utils.user import setPlayerPermission, getUserOnly
+from utils.user import setPlayerPermission, getUserOnly, updateUsers
+from utils.club import updateClub
+from utils.team import updateTeam
 from utils.decorators import only_left_hand, only_collaborator, only_admin
 from utils.tournament import addNewTournament, deleteTournament
 
@@ -90,4 +92,14 @@ def webhook():
 @only_collaborator
 def updateNewCountries():
     updateCountries(current_app)
+    return 'Updated PythonAnywhere successfully', 200
+
+
+@adminBP.route('/update_players/peru', methods=['GET'])
+@login_required
+@only_collaborator
+def updateCountriesPlayers():
+    updateUsers(current_app.config['database'])
+    updateClub(current_app.config['database'])
+    updateTeam(current_app.config['database'])
     return 'Updated PythonAnywhere successfully', 200
