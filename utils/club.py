@@ -27,7 +27,7 @@ def getClubs(country, qty=0):
 
 def addClub(db, te, tor):
     if te['team']:
-        if not Club.query.filter_by(bcpId=te['teamId']).first():
+        if not Club.query.filter_by(bcpId=te['teamId']).filter_by(country=tor.country).first():
             db.session.add(Club(
                 bcpId=te['teamId'],
                 name=te['team']['name'].strip(),
@@ -35,7 +35,7 @@ def addClub(db, te, tor):
                 shortName=te['team']['name'].replace(" ", "").lower()
             ))
     db.session.commit()
-    return Club.query.filter_by(bcpId=te['teamId']).first() if te['team'] else None
+    return Club.query.filter_by(bcpId=te['teamId']).filter_by(country=tor.country).first() if te['team'] else None
 
 
 def updateClub(db):
