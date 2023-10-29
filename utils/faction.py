@@ -21,7 +21,19 @@ def getFactions(country):
         factUsers = current_app.config["database"].session.query(Faction, UserFaction, User).filter(
             Faction.id == UserFaction.factionId).filter(UserFaction.userId == User.id).filter(User.country == current_app.config["COUNTRIES"][country]).order_by(Faction.name).order_by(
             desc(UserFaction.bcpScore)).all()
-    return Faction.query.order_by(Faction.name).all(), factUsers
+    factions = Faction.query.order_by(Faction.name).all()
+    toDelete = []
+    for index, fct in enumerate(factions):
+        flag = False
+        for ftu in factUsers:
+            if ftu.Faction == fct:
+                flag = True
+                break
+        if not flag:
+            toDelete.append(index)
+    for index in reversed(toDelete):
+        factions.pop(index)
+    return factions, factUsers
 
 
 def addFaction(db, fct):
