@@ -314,6 +314,17 @@ h4{
     background: rgba(20, 20, 20, .8);
 }
 
+.bmc-btn-container {
+    width: 80%;
+    background-color: #ffdd00;
+    border-radius: 5px;
+    margin: 15px auto;
+    color: black;
+}
+.bmc-btn {
+    color: black !important;
+    font-size: medium !important;
+}
 /* Responsive */
 
 @media only screen and (max-width: 920px) {
