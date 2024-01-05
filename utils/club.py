@@ -36,11 +36,3 @@ def addClub(db, te, tor):
             ))
     db.session.commit()
     return Club.query.filter_by(bcpId=te['teamId']).filter_by(country=tor.country).first() if te['team'] else None
-
-
-def updateClub(db):
-    users = Club.query.all()
-    for usr in users:
-        if usr.country == "Perú":
-            usr.country = "Peru"
-    db.session.commit()

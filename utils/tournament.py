@@ -186,3 +186,11 @@ def getLocation(geoLocator, info, attempt=1, maxAttempts=10):
         if attempt <= maxAttempts:
             return getLocation(geoLocator, info, attempt=attempt+1)
         raise
+
+
+def updateTournaments(db):
+    users = Tournament.query.all()
+    for usr in users:
+        if usr.country == "Perú":
+            usr.country = "Peru"
+    db.session.commit()

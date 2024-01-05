@@ -41,11 +41,3 @@ def addTeam(db, te, tor):
         ))
     db.session.commit()
     return Team.query.filter_by(bcpId=teId).first()
-
-
-def updateTeam(db):
-    users = Team.query.all()
-    for usr in users:
-        if usr.country == "Perú":
-            usr.country = "Peru"
-    db.session.commit()

@@ -109,10 +109,3 @@ def addUser(db, usr, tor):
     db.session.commit()
     return User.query.filter_by(bcpId=usr['userId']).first()
 
-
-def updateUsers(db):
-    users = User.query.all()
-    for usr in users:
-        if usr.country == "Perú":
-            usr.country = "Peru"
-    db.session.commit()

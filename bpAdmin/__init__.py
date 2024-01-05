@@ -5,11 +5,10 @@ from flask import Blueprint, redirect, url_for, current_app, request, flash, ren
 from flask_login import login_required, current_user
 
 from utils.general import updateStats, updateCountries
-from utils.user import setPlayerPermission, getUserOnly, updateUsers
-from utils.club import updateClub
-from utils.team import updateTeam
+from utils.user import setPlayerPermission, getUserOnly
 from utils.decorators import only_left_hand, only_collaborator, only_admin
 from utils.tournament import addNewTournament, deleteTournament
+from utils.admin import applyPatches
 
 adminBP = Blueprint('adminBluePrint', __name__)
 
@@ -39,6 +38,7 @@ def addNewTournamentEndPoint():
     if request.method == 'POST':
         status, tor = addNewTournament(current_app.config['database'], request.form)
         if status == 200:
+            applyPatches(current_app)
             if updateStats(current_app.config['database']) == 200:
                 flash("OK")
             else:
@@ -87,19 +87,11 @@ def webhook():
         return 'Wrong event type', 400
 
 
-@adminBP.route('/update_countries', methods=['GET'])
+@adminBP.route('/apply-patches', methods=['GET'])
 @login_required
 @only_collaborator
-def updateNewCountries():
+def applyPatches():
     updateCountries(current_app)
-    return 'Updated PythonAnywhere successfully', 200
-
-
-@adminBP.route('/update_players/peru', methods=['GET'])
-@login_required
-@only_collaborator
-def updateCountriesPlayers():
-    updateUsers(current_app.config['database'])
-    updateClub(current_app.config['database'])
-    updateTeam(current_app.config['database'])
+    applyPatches(current_app)
+    updateStats(current_app.config['database'])
     return 'Updated PythonAnywhere successfully', 200
