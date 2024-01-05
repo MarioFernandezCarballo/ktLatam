@@ -90,7 +90,7 @@ def webhook():
 @adminBP.route('/apply-patches', methods=['GET'])
 @login_required
 @only_collaborator
-def applyPatches():
+def applyPatchesEndPoint():
     updateCountries(current_app)
     applyPatches(current_app)
     updateStats(current_app.config['database'])
