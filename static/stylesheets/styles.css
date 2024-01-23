@@ -293,12 +293,17 @@ h4{
 .hof-countries {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.hof-faction {
+    width: 30%;
+    margin-bottom: 50px;
 }
 .hof-country {
     width: 50%;
-    margin-bottom: 50px;
-}
-.mb-50 {
     margin-bottom: 50px;
 }
 .mb-100 {
