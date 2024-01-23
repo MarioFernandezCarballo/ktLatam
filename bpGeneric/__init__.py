@@ -41,3 +41,12 @@ def sponsorsEndPoint():
         title="Patrocinios",
         user=current_user if not current_user.is_anonymous else None
     )
+
+
+@genericBP.route('/hof/<year>/<country>', methods={"GET"})
+def hallOfFameEndPoint(year, country):
+    return render_template(
+        'hof' + year + country + '.html',
+        title="HoF 23-24",
+        user=current_user if not current_user.is_anonymous else None
+    )

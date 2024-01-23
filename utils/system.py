@@ -16,6 +16,7 @@ def createApp(app):
     app.config["SECRET_KEY"] = handleSecretKey()
     app.config['PORT'] = config['port']
     app.config['HOST'] = config['host']
+    app.config['DEBUG'] = config['debug']
 
     app.config["JWT_SECRET_KEY"] = handleSecretKey()
     app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
