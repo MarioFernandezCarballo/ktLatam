@@ -95,9 +95,9 @@ def manageUsers(db, tor):
         infoUsr = json.loads(response.text)
         for tournament in infoUsr['data']:
             if tournament["eventId"] == tor.bcpId and tournament['placing'] == user['placing']:
-                usrTor.bcpScore = tournament['ITCPoints']
-                usrTor.position = tournament['placing']
-                break
+                if tournament['ITCPoints'] > usrTor.bcpScore:
+                    usrTor.bcpScore = tournament['ITCPoints']
+                    usrTor.position = tournament['placing']
         if fct:
             if fct not in usr.factions:
                 usr.factions.append(fct)
