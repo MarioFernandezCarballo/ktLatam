@@ -42,6 +42,13 @@ def sponsorsEndPoint():
         user=current_user if not current_user.is_anonymous else None
     )
 
+@genericBP.route("/privacy", methods={"GET", "POST"})
+def privacyEndPoint():
+    return render_template(
+        'privacy.html',
+        title="Privacidad y Seguridad",
+        user=current_user if not current_user.is_anonymous else None
+    )
 
 @genericBP.route('/hof/<year>/<country>', methods={"GET"})
 def hallOfFameEndPoint(year, country):

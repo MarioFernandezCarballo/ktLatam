@@ -1,2 +1,19 @@
 # Project exclude paths
 /venv/
+database.txt
+utils/__pycache__
+database/__pycache__
+bpUser/__pycache__
+bpTournament/__pycache__
+bpTeam/__pycache__
+bpGeneric/__pycache__
+bpFaction/__pycache__
+bpClub/__pycache__
+bpAuth/__pycache__
+bpAdmin/__pycache__
+__pycache__
+/secret/
+/instance/
+.idea
+**.DS_Store
+/backup
