@@ -1,7 +1,7 @@
 import os
 import json
 
-from flask import Blueprint, redirect, url_for, current_app, request, flash, render_template
+from flask import Blueprint, redirect, url_for, current_app, request, flash, render_template, send_from_directory
 from flask_login import login_required, current_user
 
 from utils.general import updateStats, updateCountries
@@ -85,6 +85,10 @@ def webhook():
         return 'Updated PythonAnywhere successfully', 200
     else:
         return 'Wrong event type', 400
+
+@adminBP.route('/ads.txt')
+def serve_ads_txt():
+    return send_from_directory(current_app.static_folder, 'ads.txt')
 
 
 @adminBP.route('/apply-patches', methods=['GET'])
